@@ -1,0 +1,102 @@
+h1 {
+  margin: 0;
+  font-size: 4em;
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2em;
+
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+
+  background-clip: text;
+  margin-top: 2em;
+  /* color: transparent; */
+}
+
+.subtitle {
+  font-size: 1.5em;
+}
+
+.searchWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .examples {
+    visibility: hidden;
+    margin-top: 1em;
+  }
+
+  &:focus-within {
+    .examples {
+      visibility: visible;
+    }
+  }
+}
+
+.search {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 640px;
+
+  input,
+  button {
+    font-size: 2em;
+    font-family: inherit;
+  }
+
+  input {
+    border: 1px solid lightgray;
+    padding: 0.5em 1em;
+    border-radius: 99999px;
+    width: 100%;
+  }
+
+  button {
+    position: absolute;
+    right: 0;
+    align-self: center;
+    border: 0;
+    padding: 0.5em 0.75em;
+    background: none;
+    cursor: pointer;
+  }
+}
+
+.emojis {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  padding: 1em;
+  border-radius: 2em;
+}
+
+.bgGradient {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

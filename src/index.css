@@ -1,0 +1,12 @@
+:root {
+  font-family: system-ui, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 1em;
+}
