@@ -1,0 +1,13 @@
+{
+  "CORS_ORIGINS": [
+    "http://localhost:5173"
+  ],
+  "CORS_EXPOSE_HEADERS": [
+    "Retry-After"
+  ],
+  "RATELIMIT_DEFAULT": "50 per day, 25 per hour",
+  "RATELIMIT_STORAGE_URI": "memory://",
+  "RATELIMIT_HEADERS_ENABLED": true,
+  "RATELIMIT_HEADER_RETRY_AFTER": "http-date",
+  "CACHE_TYPE": "SimpleCache"
+}

@@ -11,7 +11,10 @@ interface EmojiProps {
 function Emoji({ char, index, isCopied, handleCopy }: EmojiProps) {
   return (
     <div
-      className={cn(s.emoji, { [s.copied]: isCopied })}
+      className={cn(s.emoji, 'animate__animated', {
+        [s.copied]: isCopied,
+        animate__heartBeat: isCopied,
+      })}
       onClick={() => handleCopy(index)}
     >
       {char}

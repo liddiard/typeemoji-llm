@@ -32,7 +32,6 @@ h1 {
 
   .examples {
     visibility: hidden;
-    margin-top: 1em;
   }
 
   &:focus-within {
@@ -47,6 +46,7 @@ h1 {
   display: flex;
   width: 100%;
   max-width: 640px;
+  margin-bottom: 1rem;
 
   input,
   button {
@@ -70,6 +70,13 @@ h1 {
     background: none;
     cursor: pointer;
   }
+}
+
+.error {
+  color: #c00;
+  max-width: 640px;
+  text-wrap: balance;
+  text-align: center;
 }
 
 .emojis {

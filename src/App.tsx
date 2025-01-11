@@ -2,16 +2,46 @@ import { useRef, useState } from 'react'
 import s from './App.module.css'
 import Emoji from './components/Emoji'
 
+const timeFormat = (date: Date) =>
+  new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  }).format(date)
+
 function App() {
   const [query, setQuery] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [emojis, setEmojis] = useState([])
   const [copiedIndex, setCopiedIndex] = useState(-1)
 
   const emojisRef = useRef<HTMLDivElement>(null)
 
   const handleSubmit = async () => {
-    const response = await fetch(`http://localhost:8080/search?q=${query}`)
+    let response
+    setLoading(true)
+    try {
+      response = await fetch(`http://localhost:8080/search?q=${query}`)
+    } catch (error) {
+      setError(`Sorry, something went wrong. ${error}`)
+      setLoading(false)
+      return
+    }
+    const { headers } = response
+    if (response.status === 429) {
+      const retryAfter = headers.get('Retry-After')
+      const retryString = retryAfter
+        ? `after ⏰ ${timeFormat(new Date(retryAfter))}`
+        : 'later'
+      setError(
+        `✋ Sorry, too many requests! I’m glad you find TypeEmoji useful, but to keep it free for everyone, please try again ${retryString}.`,
+      )
+      return
+    }
     const data = await response.json()
+    setLoading(false)
     setCopiedIndex(-1)
     setEmojis(data.results)
     emojisRef.current?.focus()
@@ -52,10 +82,16 @@ function App() {
           />
           <button>🔎</button>
         </form>
-        <span className={s.examples}>
-          Try searches like: growth, danger, love, confusion, nutrition, anime,
-          meditation
-        </span>
+        {error ? (
+          <span className={s.error} role="alert">
+            {error}
+          </span>
+        ) : (
+          <span className={s.examples}>
+            Try searches like: growth, danger, love, confusion, nutrition,
+            anime, meditation
+          </span>
+        )}
       </div>
       <div
         className={s.emojis}
@@ -65,6 +101,7 @@ function App() {
       >
         {emojis.map((emoji, idx) => (
           <Emoji
+            key={emoji}
             char={emoji}
             index={idx}
             handleCopy={handleEmojiCopy}
