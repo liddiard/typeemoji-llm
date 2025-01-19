@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import s from './App.module.css'
 import Emoji from './components/Emoji'
 
@@ -17,7 +17,35 @@ function App() {
   const [emojis, setEmojis] = useState([])
   const [copiedIndex, setCopiedIndex] = useState(-1)
 
-  const emojisRef = useRef<HTMLDivElement>(null)
+  const handleEmojiCopy = useCallback(
+    (index: number) => {
+      const emoji = emojis[index]
+      if (!emoji) return
+      // copy to clipboard
+      navigator.clipboard.writeText(emoji)
+      setCopiedIndex(index)
+    },
+    [emojis],
+  )
+
+  const handleKeydown = useCallback(
+    (ev: KeyboardEvent) => {
+      if (!emojis.length) return
+      const number = parseInt(ev.key)
+      if (isNaN(number)) return
+      ev.preventDefault()
+      const index = number === 0 ? 9 : number - 1
+      handleEmojiCopy(index)
+    },
+    [emojis, handleEmojiCopy],
+  )
+
+  useEffect(() => {
+    document.body.addEventListener('keydown', handleKeydown)
+    return () => {
+      document.body.removeEventListener('keydown', handleKeydown)
+    }
+  }, [handleKeydown])
 
   const handleSubmit = async () => {
     let response
@@ -44,23 +72,6 @@ function App() {
     setLoading(false)
     setCopiedIndex(-1)
     setEmojis(data.results)
-    emojisRef.current?.focus()
-  }
-
-  const handleKeydown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
-    ev.preventDefault()
-    const number = Number(ev.key)
-    if (isNaN(number)) return
-    const index = number === 0 ? 9 : number - 1
-    handleEmojiCopy(index)
-  }
-
-  const handleEmojiCopy = (index: number) => {
-    const emoji = emojis[index]
-    if (!emoji) return
-    // copy to clipboard
-    navigator.clipboard.writeText(emoji)
-    setCopiedIndex(index)
   }
 
   return (
@@ -93,12 +104,7 @@ function App() {
           </span>
         )}
       </div>
-      <div
-        className={s.emojis}
-        tabIndex={0}
-        onKeyDown={handleKeydown}
-        ref={emojisRef}
-      >
+      <div className={s.emojis}>
         {emojis.map((emoji, idx) => (
           <Emoji
             key={emoji}
