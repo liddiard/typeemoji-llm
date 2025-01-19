@@ -3,3 +3,4 @@ Flask-Cors==5.0.0
 Flask-Limiter==3.10.0
 Flask-Caching==2.3.0
 openai==1.59.6
+pydantic==2.10.5
