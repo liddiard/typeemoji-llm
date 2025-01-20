@@ -31,11 +31,13 @@ function Emoji({
 
   return (
     <div
-      className={cn(s.emoji, 'animate__animated', {
+      className={cn(s.emoji, {
         [s.copied]: isCopied,
+        animate__animated: isCopied,
         animate__heartBeat: isCopied,
       })}
       onClick={() => handleCopy(index)}
+      aria-label={isCopied ? 'Copied emoji' : ''}
       ref={emojiRef}
     >
       {char}

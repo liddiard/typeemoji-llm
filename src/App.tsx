@@ -89,8 +89,8 @@ function App() {
             Find the best emoji to represent a concept, powered by AI.
           </span>
         </div>
-        <div className={s.searchWrapper}>
-          <form action={handleSubmit} className={s.search}>
+        <div className={s.search}>
+          <form action={handleSubmit}>
             <input
               type="text"
               placeholder="Search..."
@@ -103,6 +103,7 @@ function App() {
               onChange={(e) => setQuery(e.target.value)}
             />
             <button>🔎</button>
+            <div className={s.backdrop} />
           </form>
           {error && (
             <span className={s.error} role="alert">
@@ -128,7 +129,9 @@ function App() {
             </div>
           )}
           {emojis.length > 0 && (
-            <p>Type the number for an emoji to copy it to your clipboard.</p>
+            <p className={s.instructions}>
+              Type the number for an emoji to copy it to your clipboard.
+            </p>
           )}
         </div>
       </div>
