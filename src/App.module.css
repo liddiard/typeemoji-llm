@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: center;
   row-gap: 2em;
+  margin: 0 1em;
 }
 
 .intro {
@@ -12,6 +13,12 @@
   align-self: end;
   mix-blend-mode: overlay;
   filter: brightness(10);
+  text-wrap: balance;
+
+  @media (max-width: var(--mobile)) {
+    mix-blend-mode: unset;
+    filter: unset;
+  }
 
   h1 {
     margin: 0;
@@ -117,6 +124,7 @@
     display: flex;
     gap: 0.5em;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .instructions {
@@ -129,4 +137,26 @@
   max-width: 640px;
   text-wrap: balance;
   text-align: center;
+}
+
+@media (max-width: 640px) {
+  .app {
+    grid-template-rows: repeat(3, max-content);
+  }
+
+  .intro {
+    margin-top: 1em;
+    mix-blend-mode: unset;
+    filter: unset;
+
+    h1 {
+      font-size: 3em;
+    }
+  }
+
+  .results {
+    .instructions {
+      mix-blend-mode: unset;
+    }
+  }
 }
