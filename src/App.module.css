@@ -1,3 +1,14 @@
+a {
+  color: unset;
+}
+
+.error {
+  color: #c00;
+  max-width: 640px;
+  text-wrap: balance;
+  text-align: center;
+}
+
 .app {
   min-height: 100vh;
   display: grid;
@@ -78,7 +89,7 @@
 
     input {
       border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 0.5em 1em;
+      padding: 0.5em 2em 0.5em 1em;
       border-radius: 99999px;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.1);
@@ -89,7 +100,7 @@
       transition: outline-width var(--transition-time);
 
       &:focus {
-        outline: 2px solid var(--cyan);
+        outline: 1px solid var(--cyan);
       }
 
       &::placeholder {
@@ -132,11 +143,12 @@
   }
 }
 
-.error {
-  color: #c00;
-  max-width: 640px;
-  text-wrap: balance;
-  text-align: center;
+.footer {
+  position: absolute;
+  margin: 1em;
+  bottom: 0;
+  left: 0;
+  opacity: 0.75;
 }
 
 @media (max-width: 640px) {

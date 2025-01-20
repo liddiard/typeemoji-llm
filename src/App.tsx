@@ -130,12 +130,15 @@ function App() {
           )}
           {emojis.length > 0 && (
             <p className={s.instructions}>
-              Type the number for an emoji to copy it to your clipboard.
+              Type the number of an emoji to copy it to your clipboard.
             </p>
           )}
         </div>
       </div>
       <Background />
+      <div className={s.footer}>
+        Created by <a href="https://harrisonliddiard.com">Harrison Liddiard</a>
+      </div>
     </>
   )
 }
