@@ -10,6 +10,7 @@
   --cyan: #06b6d4;
   --yellow: #eab308;
   --pink: #ec4899;
+  --red: #ef4444;
 
   /* positions */
   --gradient-top: 40%;
@@ -21,10 +22,27 @@
   /* sizes */
   --gradient-start: 5%;
   --gradient-end: 50%;
+
+  /* spacing */
+  --input-left-padding: 2rem;
+}
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
   margin: 0;
   background-color: black;
   color: white;
+}
+
+.Typewriter {
+  display: inline;
+  font-weight: 600;
 }

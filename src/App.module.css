@@ -3,10 +3,9 @@ a {
 }
 
 .error {
-  color: #c00;
-  max-width: 640px;
-  text-wrap: balance;
-  text-align: center;
+  color: var(--red);
+  mix-blend-mode: plus-lighter;
+  margin: 1em var(--input-left-padding) 0 var(--input-left-padding);
 }
 
 .app {
@@ -51,17 +50,17 @@ a {
 }
 
 .search {
+  margin: 0 auto;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 595px;
 
   form {
     --transition-time: 250ms;
     position: relative;
     display: flex;
-    width: 100%;
-    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .backdrop {
       position: absolute;
@@ -89,7 +88,7 @@ a {
 
     input {
       border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 0.5em 2em 0.5em 1em;
+      padding: 0.5em 2em 0.5em var(--input-left-padding);
       border-radius: 99999px;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.1);
@@ -124,6 +123,13 @@ a {
         filter: brightness(20);
       }
     }
+  }
+
+  .examples {
+    mix-blend-mode: overlay;
+    margin: 1em 0 0 var(--input-left-padding);
+    font-size: 1.1em;
+    align-self: self-start;
   }
 }
 

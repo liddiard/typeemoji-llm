@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
+import Typewriter from 'typewriter-effect'
+
 import s from './App.module.css'
 import Emoji from './components/Emoji'
 import Background from './components/Background'
+import { searchExamples } from './constants'
 
 const timeFormat = (date: Date) =>
   new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, {
@@ -57,24 +60,27 @@ function App() {
       response = await fetch(`http://localhost:8080/search?q=${query}`)
     } catch (error) {
       setError(`Sorry, something went wrong. ${error}`)
+      setEmojis([])
       setLoading(false)
       return
     }
+    setLoading(false)
     const { headers } = response
     if (response.status === 429) {
       const retryAfter = headers.get('Retry-After')
       const retryString = retryAfter
-        ? `after ⏰ ${timeFormat(new Date(retryAfter))}`
+        ? `after ${timeFormat(new Date(retryAfter))}`
         : 'later'
       setError(
-        `✋ Sorry, too many requests! I’m glad you find TypeEmoji useful, but to keep it free for everyone, please try again ${retryString}.`,
+        `✋ Sorry, too many requests. To keep it free for everyone, please try again ${retryString}.`,
       )
+      setEmojis([])
       return
     }
     const data = await response.json()
-    setLoading(false)
     setCopiedIndex(-1)
     setEmojis(data.results)
+    setError('')
   }
 
   return (
@@ -105,10 +111,22 @@ function App() {
             <button>🔎</button>
             <div className={s.backdrop} />
           </form>
-          {error && (
-            <span className={s.error} role="alert">
+          {error ? (
+            <div className={s.error} role="alert">
               {error}
-            </span>
+            </div>
+          ) : (
+            <div className={s.examples}>
+              Try:{' '}
+              <Typewriter
+                options={{
+                  strings: searchExamples,
+                  autoStart: true,
+                  loop: true,
+                  pauseFor: 3000,
+                }}
+              />
+            </div>
           )}
         </div>
         <div className={s.results}>

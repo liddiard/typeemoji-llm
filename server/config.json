@@ -8,6 +8,6 @@
   "RATELIMIT_DEFAULT": "50 per day, 25 per hour",
   "RATELIMIT_STORAGE_URI": "memory://",
   "RATELIMIT_HEADERS_ENABLED": true,
-  "RATELIMIT_HEADER_RETRY_AFTER": "http-date",
+  "RATELIMIT_HEADER_RETRY_AFTER_VALUE": "http-date",
   "CACHE_TYPE": "SimpleCache"
 }
