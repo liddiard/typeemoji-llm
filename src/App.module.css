@@ -145,6 +145,8 @@ a {
   }
 
   .instructions {
+    margin-top: 2em;
+    text-wrap: balance;
     mix-blend-mode: overlay;
   }
 }
