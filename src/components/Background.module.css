@@ -1,0 +1,145 @@
+@property --cyan-x {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 40%;
+}
+
+@property --cyan-y {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 40%;
+}
+
+@property --yellow-x {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 60%;
+}
+
+@property --yellow-y {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 40%;
+}
+
+@property --pink-x {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --pink-y {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 60%;
+}
+
+@keyframes cyan {
+  from {
+    --cyan-x: var(--gradient-left);
+    --cyan-y: var(--gradient-top);
+  }
+  33% {
+    --cyan-x: var(--gradient-right);
+    --cyan-y: var(--gradient-top);
+  }
+  67% {
+    --cyan-x: var(--gradient-center);
+    --cyan-y: var(--gradient-bottom);
+  }
+  to {
+    --cyan-x: var(--gradient-left);
+    --cyan-y: var(--gradient-top);
+  }
+}
+
+@keyframes yellow {
+  from {
+    --yellow-x: var(--gradient-right);
+    --yellow-y: var(--gradient-top);
+  }
+  33% {
+    --yellow-x: var(--gradient-center);
+    --yellow-y: var(--gradient-bottom);
+  }
+  67% {
+    --yellow-x: var(--gradient-left);
+    --yellow-y: var(--gradient-top);
+  }
+  to {
+    --yellow-x: var(--gradient-right);
+    --yellow-y: var(--gradient-top);
+  }
+}
+
+@keyframes pink {
+  from {
+    --pink-x: var(--gradient-center);
+    --pink-y: var(--gradient-bottom);
+  }
+  33% {
+    --pink-x: var(--gradient-left);
+    --pink-y: var(--gradient-top);
+  }
+  67% {
+    --pink-x: var(--gradient-right);
+    --pink-y: var(--gradient-top);
+  }
+  to {
+    --pink-x: var(--gradient-center);
+    --pink-y: var(--gradient-bottom);
+  }
+}
+
+.gradients {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  animation-iteration-count: infinite;
+  opacity: 0.75;
+
+  & > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: hard-light;
+    animation-iteration-count: infinite;
+    pointer-events: none;
+    transition: filter 500ms;
+  }
+
+  .cyan {
+    background: radial-gradient(
+      circle farthest-corner at var(--cyan-x) var(--cyan-y),
+      var(--cyan) var(--gradient-start),
+      transparent var(--gradient-end)
+    );
+    animation-name: cyan;
+    animation-duration: 20s;
+  }
+
+  .yellow {
+    background: radial-gradient(
+      circle farthest-corner at var(--yellow-x) var(--yellow-y),
+      var(--yellow) var(--gradient-start),
+      transparent var(--gradient-end)
+    );
+    animation-name: yellow;
+    animation-duration: 20s;
+  }
+
+  .pink {
+    background: radial-gradient(
+      circle farthest-corner at var(--pink-x) var(--pink-y),
+      var(--pink) var(--gradient-start),
+      transparent var(--gradient-end)
+    );
+    animation-name: pink;
+    animation-duration: 20s;
+  }
+}

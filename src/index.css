@@ -1,12 +1,30 @@
 :root {
   font-family: system-ui, Helvetica, Arial, sans-serif;
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* colors */
+  --cyan: #06b6d4;
+  --yellow: #eab308;
+  --pink: #ec4899;
+
+  /* positions */
+  --gradient-top: 40%;
+  --gradient-left: 40%;
+  --gradient-right: 60%;
+  --gradient-bottom: 60%;
+  --gradient-center: 50%;
+
+  /* sizes */
+  --gradient-start: 5%;
+  --gradient-end: 50%;
 }
 
 body {
-  margin: 1em;
+  margin: 0;
+  background-color: black;
+  color: white;
 }

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import s from './App.module.css'
 import Emoji from './components/Emoji'
+import Background from './components/Background'
 
 const timeFormat = (date: Date) =>
   new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, {
@@ -16,6 +17,7 @@ function App() {
   const [error, setError] = useState('')
   const [emojis, setEmojis] = useState([])
   const [copiedIndex, setCopiedIndex] = useState(-1)
+  const [copiedTimestamp, setCopiedTimestamp] = useState(0)
 
   const handleEmojiCopy = useCallback(
     (index: number) => {
@@ -24,6 +26,7 @@ function App() {
       // copy to clipboard
       navigator.clipboard.writeText(emoji)
       setCopiedIndex(index)
+      setCopiedTimestamp(Date.now())
     },
     [emojis],
   )
@@ -75,51 +78,62 @@ function App() {
   }
 
   return (
-    <div className={s.app}>
-      <h1>✨TypeEmoji✨</h1>
-      <span className={s.subtitle}>
-        Find the best emoji to represent a concept, powered by AI.
-      </span>
-      <div className={s.searchWrapper}>
-        <form action={handleSubmit} className={s.search}>
-          <input
-            type="text"
-            placeholder="Search..."
-            name="query"
-            required
-            maxLength={100}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button>🔎</button>
-        </form>
-        {error ? (
-          <span className={s.error} role="alert">
-            {error}
+    <>
+      <div className={s.app}>
+        <div className={s.intro}>
+          <h1>
+            <span className={s.emojiLeft}>✨</span>TypeEmoji
+            <span className={s.emojiRight}>✨</span>
+          </h1>
+          <span className={s.subtitle}>
+            Find the best emoji to represent a concept, powered by AI.
           </span>
-        ) : (
-          <span className={s.examples}>
-            Try searches like: growth, danger, love, confusion, nutrition,
-            anime, meditation
-          </span>
-        )}
+        </div>
+        <div className={s.searchWrapper}>
+          <form action={handleSubmit} className={s.search}>
+            <input
+              type="text"
+              placeholder="Search..."
+              aria-label="Search"
+              name="query"
+              required
+              maxLength={100}
+              autoFocus
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button>🔎</button>
+          </form>
+          {error && (
+            <span className={s.error} role="alert">
+              {error}
+            </span>
+          )}
+        </div>
+        <div className={s.results}>
+          {loading ? (
+            <span>Loading...</span>
+          ) : (
+            <div className={s.emojis}>
+              {emojis.map((emoji, idx) => (
+                <Emoji
+                  key={emoji}
+                  char={emoji}
+                  index={idx}
+                  handleCopy={handleEmojiCopy}
+                  isCopied={idx === copiedIndex}
+                  copiedTimestamp={copiedTimestamp}
+                />
+              ))}
+            </div>
+          )}
+          {emojis.length > 0 && (
+            <p>Type the number for an emoji to copy it to your clipboard.</p>
+          )}
+        </div>
       </div>
-      <div className={s.emojis}>
-        {emojis.map((emoji, idx) => (
-          <Emoji
-            key={emoji}
-            char={emoji}
-            index={idx}
-            handleCopy={handleEmojiCopy}
-            isCopied={idx === copiedIndex}
-          />
-        ))}
-      </div>
-      <div className={s.bgGradient} />
-      {emojis.length > 0 && (
-        <span>Type the number for an emoji to copy it to your clipboard.</span>
-      )}
-    </div>
+      <Background />
+    </>
   )
 }
 
