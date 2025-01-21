@@ -25,6 +25,7 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
   const handleSubmit = async () => {
     ;(document.activeElement as HTMLElement)?.blur()
     let response
+    setError('')
     try {
       response = await fetch(`${baseUrl}/search?q=${query}`)
     } catch (error) {
@@ -44,7 +45,6 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
     }
     const data = await response.json()
     setCopiedIndex(-1)
-    setError('')
     return data.results as string[]
   }
 
