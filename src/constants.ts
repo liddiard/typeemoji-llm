@@ -1,6 +1,6 @@
 export const baseUrl = import.meta.env.DEV
   ? 'http://localhost:5919'
-  : 'https://api.typeemoji.com'
+  : 'https://typeemoji.com'
 
 export const searchExamples = [
   'Japan',
