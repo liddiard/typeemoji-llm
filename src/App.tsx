@@ -57,7 +57,6 @@ function App() {
           </span>
         </div>
         <Search
-          loading={loading}
           setCopiedIndex={setCopiedIndex}
           setEmojis={setEmojis}
           setLoading={setLoading}

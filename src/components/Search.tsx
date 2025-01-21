@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useActionState, useEffect, useState } from 'react'
 import Typewriter from 'typewriter-effect'
 import cn from 'classnames'
 import { baseUrl, searchExamples } from '../constants'
@@ -13,33 +13,23 @@ const timeFormat = (date: Date) =>
   }).format(date)
 
 interface SearchProps {
-  loading: boolean
   setCopiedIndex: (index: number) => void
   setEmojis: (emojis: string[]) => void
   setLoading: (loading: boolean) => void
 }
 
-function Search({
-  loading,
-  setCopiedIndex,
-  setEmojis,
-  setLoading,
-}: SearchProps) {
+function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
   const [query, setQuery] = useState('')
   const [error, setError] = useState('')
 
-  const handleSubmit = async (ev: React.FormEvent) => {
-    ev.preventDefault()
-    setLoading(true)
+  const handleSubmit = async () => {
     let response
     try {
       response = await fetch(`${baseUrl}/search?q=${query}`)
     } catch (error) {
       setError(`⚠️ Sorry, something went wrong. ${error}`)
-      setLoading(false)
-      return setEmojis([])
+      return []
     }
-    setLoading(false)
     const { headers } = response
     if (response.status === 429) {
       const retryAfter = headers.get('Retry-After')
@@ -49,13 +39,23 @@ function Search({
       setError(
         `🛑 Sorry, too many requests. In order to keep TypeEmoji free for everyone, please try again ${retryString}.`,
       )
-      return setEmojis([])
+      return []
     }
     const data = await response.json()
     setCopiedIndex(-1)
     setError('')
-    return setEmojis(data.results)
+    return data.results as string[]
   }
+
+  const [emojis, searchAction, loading] = useActionState(handleSubmit, [])
+
+  useEffect(() => {
+    setEmojis(emojis)
+  }, [emojis, setEmojis])
+
+  useEffect(() => {
+    setLoading(loading)
+  }, [loading, setLoading])
 
   const renderSearchDetails = () => {
     if (error) {
@@ -98,7 +98,7 @@ function Search({
 
   return (
     <div className={s.search}>
-      <form onSubmit={handleSubmit}>
+      <form action={searchAction}>
         <input
           type="text"
           placeholder="Search"
