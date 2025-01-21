@@ -43,6 +43,24 @@ function App() {
     }
   }, [handleKeydown])
 
+  const renderInstructions = () => {
+    if (loading || !emojis.length) {
+      return null
+    }
+    return (
+      <p className={cn(s.instructions, { [s.copied]: copied })}>
+        {copied ? (
+          <>
+            <span className={s.emoji}>{emojis[copiedIndex]}</span> copied to
+            clipboard
+          </>
+        ) : (
+          <>Tap or type the number of an emoji to copy it to your clipboard.</>
+        )}
+      </p>
+    )
+  }
+
   const copied = copiedIndex !== -1
   return (
     <>
@@ -76,13 +94,7 @@ function App() {
               ))}
             </div>
           )}
-          {!loading && emojis.length > 0 && (
-            <p className={cn(s.instructions, { [s.copied]: copied })}>
-              {copied
-                ? `${emojis[copiedIndex]} copied to clipboard`
-                : 'Tap or type the number of an emoji to copy it to your clipboard.'}
-            </p>
-          )}
+          {renderInstructions()}
         </div>
       </div>
       <Background loading={loading} />
