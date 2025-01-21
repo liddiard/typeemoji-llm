@@ -5,6 +5,9 @@
 }
 
 .emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0.5em;
   font-size: 3em;
@@ -14,6 +17,7 @@
   line-height: 1;
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px) brightness(1.5) saturate(2);
+  aspect-ratio: 1;
   transition:
     0.5s background-color,
     0.5s backdrop-filter;
