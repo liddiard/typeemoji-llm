@@ -13,6 +13,9 @@ a {
 }
 
 .intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
   text-align: center;
   align-self: end;
   mix-blend-mode: overlay;
