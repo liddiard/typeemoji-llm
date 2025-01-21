@@ -67,6 +67,7 @@
       cursor: pointer;
       mix-blend-mode: hard-light;
       transition: all 250ms;
+      border-radius: 100%;
 
       &:hover {
         filter: brightness(20);
