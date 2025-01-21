@@ -19,5 +19,5 @@ ENV PYTHONUNBUFFERED 1
 # Expose the application port
 EXPOSE 5919
 
-# Run the application with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5919", "app:app"]
+# Run the application with Gunicorn, logging to stdout
+CMD ["gunicorn", "--bind", "0.0.0.0:5919", "--access-logfile", "-", "--error-logfile", "-", "app:app"]

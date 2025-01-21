@@ -1,4 +1,5 @@
 import json
+import logging
 from flask import Flask, request
 from flask_cors import CORS
 from flask_limiter import Limiter
@@ -6,6 +7,10 @@ from flask_limiter.util import get_remote_address
 from flask_caching import Cache
 from pydantic import BaseModel
 from openai import OpenAI
+from datetime import datetime
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 client = OpenAI()
 app = Flask(__name__)
@@ -14,7 +19,6 @@ app.config.from_file("config.json", load=json.load)
 CORS(app)
 limiter = Limiter(get_remote_address, app=app)
 cache = Cache(app)
-
 
 class EmojiResponse(BaseModel):
     emojis: list[str]
@@ -27,24 +31,24 @@ def search():
         return "Query string is empty", 400
     if len(query) > 100:
         return "Query string is too long", 400
-    # https://platform.openai.com/docs/api-reference/chat/create
-    completion = client.beta.chat.completions.parse(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "You are to act as a recommender for emojis based on a query or description input by the user. Respond with up to 10 emoji that most are most fitting for the user's input. Do not include any other text. Each emoji should be unique; don't repeat the same ones."},
-            {
-                "role": "user",
-                "content": query
-            }
-        ],
-        max_completion_tokens=100,
-        response_format=EmojiResponse
-    )
-    message = completion.choices[0].message.parsed
-    return {
-        # ensure unique emoji while preserving order, and limit to 10
-        "results": list(dict.fromkeys(message.emojis))[:10]
-    }
+    try:
+        completion = client.beta.chat.completions.parse(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are to act as a recommender for emojis based on a query or description input by the user. Respond with up to 10 emoji that most are most fitting for the user's input. Do not include any other text. Each emoji should be unique; don't repeat the same ones."},
+                {"role": "user", "content": query}
+            ],
+            max_completion_tokens=100,
+            response_format=EmojiResponse
+        )
+        message = completion.choices[0].message.parsed
+        results = list(dict.fromkeys(message.emojis))[:10]
+    except Exception as e:
+        logger.error(f"Error processing query '{query}': {e}")
+        return "Internal server error", 500
+    timestamp = datetime.now().isoformat()
+    logger.info(f"[{timestamp}] Query: '{query}', Results: {results}")
+    return {"results": results}
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5919, debug=True)
