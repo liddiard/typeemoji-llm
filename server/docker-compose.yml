@@ -1,5 +1,6 @@
 services:
   web:
+    container_name: typeemoji
     build: .
     ports:
       - '5919:5919'
