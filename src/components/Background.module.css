@@ -109,15 +109,15 @@
     mix-blend-mode: hard-light;
     animation-iteration-count: infinite;
     pointer-events: none;
-    transition: filter 500ms;
     animation-duration: 20s;
     opacity: 0.5;
-    transition: opacity 500ms;
+    transition: all 1s;
   }
 
   &.loading {
     & > * {
-      opacity: 0.8;
+      opacity: 0.75;
+      filter: saturate(1.5);
     }
   }
 
@@ -146,5 +146,11 @@
       transparent var(--gradient-end)
     );
     animation-name: pink;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .gradients > * {
+    animation: none !important;
   }
 }

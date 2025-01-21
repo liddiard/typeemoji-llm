@@ -98,7 +98,7 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
       <form action={searchAction}>
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search"
           aria-label="Search"
           name="query"
           required
