@@ -46,7 +46,7 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
     return data.results as string[]
   }
 
-  const [emojis, searchAction, loading] = useActionState(handleSubmit, [], '/')
+  const [emojis, searchAction, loading] = useActionState(handleSubmit, [])
 
   useEffect(() => {
     setEmojis(emojis)
@@ -97,7 +97,7 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
 
   return (
     <div className={s.search}>
-      <form action={searchAction}>
+      <form action={searchAction} onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
           placeholder="Search"
