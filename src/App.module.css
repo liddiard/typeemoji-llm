@@ -15,7 +15,7 @@ a {
 .intro {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 1em;
   text-align: center;
   align-self: end;
   mix-blend-mode: overlay;
@@ -91,7 +91,7 @@ a {
   }
 
   .intro {
-    margin-top: 1em;
+    margin-top: 2em;
     mix-blend-mode: unset;
     filter: unset;
 
