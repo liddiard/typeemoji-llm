@@ -9,8 +9,8 @@ Find the best emoji to represent a concept, powered by AI. Learn more in the [bl
 1. `npm i`
 2. `npm run dev`
 
-Build: `npm run build`
-Deploy (requires configured [AWS CLI](https://aws.amazon.com/cli/)): `npm run deploy`
+- Build: `npm run build`
+- Deploy (requires configured [AWS CLI](https://aws.amazon.com/cli/)): `npm run deploy`
 
 ### Server
 
