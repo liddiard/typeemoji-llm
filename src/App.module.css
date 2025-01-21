@@ -33,7 +33,9 @@ a {
     font-weight: 600;
 
     .emojiLeft {
-      margin-right: 0.02em;
+      display: inline-block;
+      transform: scaleX(-1);
+      margin-right: 0.1em;
     }
 
     .emojiRight {
