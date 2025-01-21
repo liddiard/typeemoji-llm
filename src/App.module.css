@@ -31,6 +31,7 @@ a {
     margin: 0;
     font-size: 4em;
     font-weight: 600;
+    text-wrap: nowrap;
 
     .emojiLeft {
       display: inline-block;
