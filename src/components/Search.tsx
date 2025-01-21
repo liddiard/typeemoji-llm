@@ -46,7 +46,7 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
     return data.results as string[]
   }
 
-  const [emojis, searchAction, loading] = useActionState(handleSubmit, [], '')
+  const [emojis, searchAction, loading] = useActionState(handleSubmit, [], '/')
 
   useEffect(() => {
     setEmojis(emojis)
