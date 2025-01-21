@@ -1,50 +1,30 @@
-# React + TypeScript + Vite
+# [✨ TypeEmoji LLM](https://typeemoji.com/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Find the best emoji to represent a concept, powered by AI. Learn more in the [blog post](https://harrisonliddiard.com/project/typeemoji-llm/).
 
-Currently, two official plugins are available:
+## Local development setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Client
 
-## Expanding the ESLint configuration
+1. `npm i`
+2. `npm run dev`
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Build: `npm run build`
+Deploy (requires configured [AWS CLI](https://aws.amazon.com/cli/)): `npm run deploy`
 
-- Configure the top-level `parserOptions` property like this:
+### Server
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+#### Docker (recommended)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. `cd server/`
+2. `cp .env.example .env`
+3. Add your OpenAI API key to the `.env` file
+4. `docker compose up`
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+#### No Docker
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. `cd server/`
+2. `python3 -m venv venv`
+3. `source bin/activate`
+4. `pip install -r requirements.txt`
+5. `OPENAI_API_KEY=<your API key> python app.py`
