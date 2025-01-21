@@ -26,7 +26,7 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
     try {
       response = await fetch(`http://localhost:5919/search?q=${query}`)
     } catch (error) {
-      setError(`Sorry, something went wrong. ${error}`)
+      setError(`⚠️ Sorry, something went wrong. ${error}`)
       return []
     }
     const { headers } = response
@@ -86,6 +86,8 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
             strings: searchExamples,
             autoStart: true,
             loop: true,
+            // @ts-expect-error: `pauseFor` is missing from the `options` type
+            // docs: https://www.npmjs.com/package/typewriter-effect
             pauseFor: 3000,
           }}
         />
