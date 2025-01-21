@@ -3,6 +3,7 @@ export const searchExamples = [
   'New York City',
   'San Francisco',
   'Paris',
+  'tropical island',
   'anime',
   'programming',
   'love',
@@ -21,6 +22,7 @@ export const searchExamples = [
   'ennui',
   'military',
   'Earth Day',
+  'martial arts',
 ]
   // shuffle the examples
   .map((value) => ({ value, sort: Math.random() }))

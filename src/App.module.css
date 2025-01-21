@@ -2,12 +2,6 @@ a {
   color: unset;
 }
 
-.error {
-  color: var(--red);
-  mix-blend-mode: plus-lighter;
-  margin: 1em var(--input-left-padding) 0 var(--input-left-padding);
-}
-
 .app {
   min-height: 100vh;
   display: grid;
@@ -36,7 +30,7 @@ a {
     font-weight: 600;
 
     .emojiLeft {
-      margin-right: 0.05em;
+      margin-right: 0.02em;
     }
 
     .emojiRight {
@@ -49,93 +43,14 @@ a {
   }
 }
 
-.search {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 595px;
-
-  form {
-    --transition-time: 250ms;
-    position: relative;
-    display: flex;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .backdrop {
-      position: absolute;
-      box-shadow: 0 0 60px 0 var(--cyan);
-      width: 100%;
-      height: 100%;
-      border-radius: 99999px;
-      mix-blend-mode: lighten;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity var(--transition-time);
-    }
-
-    &:focus-within {
-      .backdrop {
-        opacity: 1;
-      }
-    }
-
-    input,
-    button {
-      font-size: 2em;
-      font-family: inherit;
-    }
-
-    input {
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 0.5em 2em 0.5em var(--input-left-padding);
-      border-radius: 99999px;
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px) brightness(1.5) saturate(2);
-      color: white;
-      position: relative;
-      outline-width: 0;
-      transition: outline-width var(--transition-time);
-
-      &:focus {
-        outline: 1px solid var(--cyan);
-      }
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.75);
-      }
-    }
-
-    button {
-      position: absolute;
-      right: 0;
-      align-self: center;
-      border: 0;
-      padding: 0.5em 0.75em;
-      background: none;
-      cursor: pointer;
-      mix-blend-mode: hard-light;
-      transition: all 250ms;
-
-      &:hover {
-        transform: scale(1.25);
-        filter: brightness(20);
-      }
-    }
-  }
-
-  .examples {
-    mix-blend-mode: overlay;
-    margin: 1em 0 0 var(--input-left-padding);
-    font-size: 1.1em;
-    align-self: self-start;
-  }
-}
-
 .results {
   align-self: start;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 3em;
 
   .emojis {
     display: flex;
@@ -145,9 +60,16 @@ a {
   }
 
   .instructions {
-    margin-top: 2em;
+    max-width: 480px;
     text-wrap: balance;
-    mix-blend-mode: overlay;
+    opacity: 0.8;
+    transition: 0.5s opacity;
+    font-size: 1.1em;
+    line-height: 1.4;
+
+    &.copied {
+      opacity: 1;
+    }
   }
 }
 
@@ -157,6 +79,7 @@ a {
   bottom: 0;
   left: 0;
   opacity: 0.75;
+  font-size: 0.9em;
 }
 
 @media (max-width: 640px) {
@@ -171,12 +94,6 @@ a {
 
     h1 {
       font-size: 3em;
-    }
-  }
-
-  .results {
-    .instructions {
-      mix-blend-mode: unset;
     }
   }
 }

@@ -42,6 +42,10 @@ body {
   color: white;
 }
 
+#root {
+  position: relative;
+}
+
 .Typewriter {
   display: inline;
   font-weight: 600;

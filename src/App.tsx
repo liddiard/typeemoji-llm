@@ -1,26 +1,16 @@
 import { useCallback, useEffect, useState } from 'react'
-import Typewriter from 'typewriter-effect'
+import cn from 'classnames'
 
 import s from './App.module.css'
 import Emoji from './components/Emoji'
 import Background from './components/Background'
-import { searchExamples } from './constants'
-
-const timeFormat = (date: Date) =>
-  new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, {
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  }).format(date)
+import Search from './components/Search'
 
 function App() {
-  const [query, setQuery] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [emojis, setEmojis] = useState([])
   const [copiedIndex, setCopiedIndex] = useState(-1)
   const [copiedTimestamp, setCopiedTimestamp] = useState(0)
+  const [emojis, setEmojis] = useState<string[]>([])
+  const [loading, setLoading] = useState(false)
 
   const handleEmojiCopy = useCallback(
     (index: number) => {
@@ -53,36 +43,7 @@ function App() {
     }
   }, [handleKeydown])
 
-  const handleSubmit = async () => {
-    let response
-    setLoading(true)
-    try {
-      response = await fetch(`http://localhost:8080/search?q=${query}`)
-    } catch (error) {
-      setError(`Sorry, something went wrong. ${error}`)
-      setEmojis([])
-      setLoading(false)
-      return
-    }
-    setLoading(false)
-    const { headers } = response
-    if (response.status === 429) {
-      const retryAfter = headers.get('Retry-After')
-      const retryString = retryAfter
-        ? `after ${timeFormat(new Date(retryAfter))}`
-        : 'later'
-      setError(
-        `✋ Sorry, too many requests. To keep it free for everyone, please try again ${retryString}.`,
-      )
-      setEmojis([])
-      return
-    }
-    const data = await response.json()
-    setCopiedIndex(-1)
-    setEmojis(data.results)
-    setError('')
-  }
-
+  const copied = copiedIndex !== -1
   return (
     <>
       <div className={s.app}>
@@ -95,44 +56,13 @@ function App() {
             Find the best emoji to represent a concept, powered by AI.
           </span>
         </div>
-        <div className={s.search}>
-          <form action={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Search..."
-              aria-label="Search"
-              name="query"
-              required
-              maxLength={100}
-              autoFocus
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button>🔎</button>
-            <div className={s.backdrop} />
-          </form>
-          {error ? (
-            <div className={s.error} role="alert">
-              {error}
-            </div>
-          ) : (
-            <div className={s.examples}>
-              Try:{' '}
-              <Typewriter
-                options={{
-                  strings: searchExamples,
-                  autoStart: true,
-                  loop: true,
-                  pauseFor: 3000,
-                }}
-              />
-            </div>
-          )}
-        </div>
+        <Search
+          setCopiedIndex={setCopiedIndex}
+          setEmojis={setEmojis}
+          setLoading={setLoading}
+        />
         <div className={s.results}>
-          {loading ? (
-            <span>Loading...</span>
-          ) : (
+          {!loading && (
             <div className={s.emojis}>
               {emojis.map((emoji, idx) => (
                 <Emoji
@@ -146,14 +76,16 @@ function App() {
               ))}
             </div>
           )}
-          {emojis.length > 0 && (
-            <p className={s.instructions}>
-              Type the number of an emoji to copy it to your clipboard.
+          {!loading && emojis.length > 0 && (
+            <p className={cn(s.instructions, { [s.copied]: copied })}>
+              {copied
+                ? `Copied to clipboard: ${emojis[copiedIndex]}`
+                : 'Tap or type the number of an emoji to copy it to your clipboard.'}
             </p>
           )}
         </div>
       </div>
-      <Background />
+      <Background loading={loading} />
       <div className={s.footer}>
         Created by <a href="https://harrisonliddiard.com">Harrison Liddiard</a>
       </div>

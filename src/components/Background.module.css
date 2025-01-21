@@ -99,7 +99,6 @@
   height: 100%;
   z-index: -1;
   animation-iteration-count: infinite;
-  opacity: 0.75;
 
   & > * {
     position: absolute;
@@ -111,6 +110,15 @@
     animation-iteration-count: infinite;
     pointer-events: none;
     transition: filter 500ms;
+    animation-duration: 20s;
+    opacity: 0.5;
+    transition: opacity 500ms;
+  }
+
+  &.loading {
+    & > * {
+      opacity: 0.8;
+    }
   }
 
   .cyan {
@@ -120,7 +128,6 @@
       transparent var(--gradient-end)
     );
     animation-name: cyan;
-    animation-duration: 20s;
   }
 
   .yellow {
@@ -130,7 +137,6 @@
       transparent var(--gradient-end)
     );
     animation-name: yellow;
-    animation-duration: 20s;
   }
 
   .pink {
@@ -140,6 +146,5 @@
       transparent var(--gradient-end)
     );
     animation-name: pink;
-    animation-duration: 20s;
   }
 }

@@ -33,8 +33,6 @@ function Emoji({
     <div
       className={cn(s.emoji, {
         [s.copied]: isCopied,
-        animate__animated: isCopied,
-        animate__heartBeat: isCopied,
       })}
       onClick={() => handleCopy(index)}
       aria-label={isCopied ? 'Copied emoji' : ''}
@@ -42,7 +40,11 @@ function Emoji({
     >
       {char}
       {isCopied ? (
-        <span className={s.copied}>✅</span>
+        <span
+          className={cn(s.copied, 'animate__animated', 'animate__heartBeat')}
+        >
+          ✅
+        </span>
       ) : (
         <kbd>{index === 9 ? 0 : index + 1}</kbd>
       )}

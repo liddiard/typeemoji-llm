@@ -1,0 +1,88 @@
+.search {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 595px;
+
+  form {
+    --transition-time: 250ms;
+    position: relative;
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .backdrop {
+      position: absolute;
+      box-shadow: 0 0 60px 0 var(--cyan);
+      width: 100%;
+      height: 100%;
+      border-radius: 99999px;
+      mix-blend-mode: lighten;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--transition-time);
+    }
+
+    &:focus-within {
+      .backdrop {
+        opacity: 1;
+      }
+    }
+
+    input,
+    button {
+      font-size: 2em;
+      font-family: inherit;
+    }
+
+    input {
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 0.5em 2em 0.5em var(--input-left-padding);
+      border-radius: 99999px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px) brightness(1.5) saturate(2);
+      color: white;
+      position: relative;
+      outline-width: 0;
+      transition: outline-width var(--transition-time);
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+
+      &:focus {
+        outline: 1px solid var(--cyan);
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.75);
+      }
+    }
+
+    button {
+      position: absolute;
+      right: 0;
+      align-self: center;
+      border: 0;
+      padding: 0.5em 0.75em;
+      background: none;
+      cursor: pointer;
+      mix-blend-mode: hard-light;
+      transition: all 250ms;
+
+      &:hover {
+        filter: brightness(20);
+      }
+    }
+  }
+
+  .searchDetails {
+    margin: 1em var(--input-left-padding) 0 var(--input-left-padding);
+    mix-blend-mode: overlay;
+    font-size: 1.2em;
+    align-self: self-start;
+  }
+
+  .loading {
+    font-weight: 600;
+    display: inline-block;
+  }
+}
