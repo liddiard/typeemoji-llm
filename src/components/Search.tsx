@@ -1,7 +1,7 @@
 import { useActionState, useEffect, useState } from 'react'
 import Typewriter from 'typewriter-effect'
 import cn from 'classnames'
-import { searchExamples } from '../constants'
+import { baseUrl, searchExamples } from '../constants'
 import s from './Search.module.css'
 
 const timeFormat = (date: Date) =>
@@ -24,7 +24,7 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
   const handleSubmit = async () => {
     let response
     try {
-      response = await fetch(`http://localhost:5919/search?q=${query}`)
+      response = await fetch(`${baseUrl}/search?q=${query}`)
     } catch (error) {
       setError(`⚠️ Sorry, something went wrong. ${error}`)
       return []

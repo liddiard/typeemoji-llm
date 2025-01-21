@@ -1,3 +1,7 @@
+export const baseUrl = import.meta.env.DEV
+  ? 'http://localhost:5919'
+  : 'https://api.typeemoji.com'
+
 export const searchExamples = [
   'Japan',
   'New York City',
