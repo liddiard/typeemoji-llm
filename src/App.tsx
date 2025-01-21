@@ -50,10 +50,10 @@ function App() {
     return (
       <p className={cn(s.instructions, { [s.copied]: copied })}>
         {copied ? (
-          <>
+          <div className="animate__animated animate__bounceIn">
             <span className={s.emoji}>{emojis[copiedIndex]}</span> copied to
             clipboard
-          </>
+          </div>
         ) : (
           <>Tap or type the number of an emoji to copy it to your clipboard.</>
         )}
