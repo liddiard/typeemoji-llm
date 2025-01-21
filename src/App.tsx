@@ -79,7 +79,7 @@ function App() {
           {!loading && emojis.length > 0 && (
             <p className={cn(s.instructions, { [s.copied]: copied })}>
               {copied
-                ? `Copied to clipboard: ${emojis[copiedIndex]}`
+                ? `${emojis[copiedIndex]} copied to clipboard`
                 : 'Tap or type the number of an emoji to copy it to your clipboard.'}
             </p>
           )}
