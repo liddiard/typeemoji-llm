@@ -1,6 +1,7 @@
 {
   "CORS_ORIGINS": [
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://api.typeemoji.com"
   ],
   "CORS_EXPOSE_HEADERS": [
     "Retry-After"
