@@ -25,6 +25,6 @@ Find the best emoji to represent a concept, powered by AI. Learn more in the [bl
 
 1. `cd server/`
 2. `python3 -m venv venv`
-3. `source bin/activate`
+3. `source venv/bin/activate`
 4. `pip install -r requirements.txt`
 5. `OPENAI_API_KEY=<your API key> python app.py`
