@@ -5,3 +5,4 @@ services:
       - '5919:5919'
     env_file:
       - .env
+    restart: unless-stopped
