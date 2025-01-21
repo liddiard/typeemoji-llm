@@ -23,6 +23,7 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
   const [error, setError] = useState('')
 
   const handleSubmit = async () => {
+    ;(document.activeElement as HTMLElement)?.blur()
     let response
     try {
       response = await fetch(`${baseUrl}/search?q=${query}`)
