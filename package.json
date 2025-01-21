@@ -10,8 +10,11 @@
     "preview": "vite preview",
     "deploy": "./deploy.sh"
   },
+  "engines": {
+    "node": "23",
+    "npm": "10"
+  },
   "dependencies": {
-    "@mlc-ai/web-llm": "^0.2.77",
     "animate.css": "^4.1.1",
     "classnames": "^2.5.1",
     "react": "^19.0.0",
