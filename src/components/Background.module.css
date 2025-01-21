@@ -34,60 +34,62 @@
   initial-value: 60%;
 }
 
+/* NOTE: Firefox doesn't support referencing CSS variables in @keyframes */
+
 @keyframes cyan {
   from {
-    --cyan-x: var(--gradient-left);
-    --cyan-y: var(--gradient-top);
+    --cyan-x: 40%;
+    --cyan-y: 40%;
   }
   33% {
-    --cyan-x: var(--gradient-right);
-    --cyan-y: var(--gradient-top);
+    --cyan-x: 60%;
+    --cyan-y: 40%;
   }
   67% {
-    --cyan-x: var(--gradient-center);
-    --cyan-y: var(--gradient-bottom);
+    --cyan-x: 50%;
+    --cyan-y: 60%;
   }
   to {
-    --cyan-x: var(--gradient-left);
-    --cyan-y: var(--gradient-top);
+    --cyan-x: 40%;
+    --cyan-y: 40%;
   }
 }
 
 @keyframes yellow {
   from {
-    --yellow-x: var(--gradient-right);
-    --yellow-y: var(--gradient-top);
+    --yellow-x: 60%;
+    --yellow-y: 40%;
   }
   33% {
-    --yellow-x: var(--gradient-center);
-    --yellow-y: var(--gradient-bottom);
+    --yellow-x: 50%;
+    --yellow-y: 60%;
   }
   67% {
-    --yellow-x: var(--gradient-left);
-    --yellow-y: var(--gradient-top);
+    --yellow-x: 40%;
+    --yellow-y: 40%;
   }
   to {
-    --yellow-x: var(--gradient-right);
-    --yellow-y: var(--gradient-top);
+    --yellow-x: 60%;
+    --yellow-y: 40%;
   }
 }
 
 @keyframes pink {
   from {
-    --pink-x: var(--gradient-center);
-    --pink-y: var(--gradient-bottom);
+    --pink-x: 50%;
+    --pink-y: 60%;
   }
   33% {
-    --pink-x: var(--gradient-left);
-    --pink-y: var(--gradient-top);
+    --pink-x: 40%;
+    --pink-y: 40%;
   }
   67% {
-    --pink-x: var(--gradient-right);
-    --pink-y: var(--gradient-top);
+    --pink-x: 60%;
+    --pink-y: 40%;
   }
   to {
-    --pink-x: var(--gradient-center);
-    --pink-y: var(--gradient-bottom);
+    --pink-x: 50%;
+    --pink-y: 60%;
   }
 }
 
