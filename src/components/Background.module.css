@@ -112,7 +112,7 @@
     mix-blend-mode: hard-light;
     transition: all 1s;
     animation-iteration-count: infinite;
-    animation-duration: 20s;
+    animation-duration: 30s;
     animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
   }
 
