@@ -20,5 +20,4 @@ ENV PYTHONUNBUFFERED 1
 EXPOSE 5919
 
 # Run the application with Gunicorn, logging to stdout
-# https://stackoverflow.com/a/25737799
-CMD ["gunicorn", "--bind", "0.0.0.0:5919", "--access-logfile", "-", "--error-logfile", "-", "--access-logformat", '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" "%({X_Real_IP}i)s', "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5919", "--access-logfile", "-", "--error-logfile", "-", "app:app"]
