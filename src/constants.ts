@@ -39,3 +39,13 @@ export const searchExamples = [
   .map((value) => ({ value, sort: Math.random() }))
   .sort((a, b) => a.sort - b.sort)
   .map(({ value }) => value)
+
+// assure TypeScript that these are the only properties we'll be accessing on
+// `KeyboardEvent`
+type ModifierKey = 'shiftKey' | 'altKey' | 'ctrlKey' | 'metaKey'
+export const modifierKeys: ModifierKey[] = [
+  'shiftKey',
+  'altKey',
+  'ctrlKey',
+  'metaKey',
+]

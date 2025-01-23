@@ -5,6 +5,7 @@ import s from './App.module.css'
 import Emoji from './components/Emoji'
 import Background from './components/Background'
 import Search from './components/Search'
+import { modifierKeys } from './constants'
 
 function App() {
   const [copiedIndex, setCopiedIndex] = useState(-1)
@@ -26,9 +27,14 @@ function App() {
 
   const handleKeydown = useCallback(
     (ev: KeyboardEvent) => {
-      if (!emojis.length) return
       const number = parseInt(ev.key)
-      if (isNaN(number)) return
+      if (
+        !emojis.length ||
+        isNaN(number) ||
+        modifierKeys.some((key) => ev[key])
+      ) {
+        return
+      }
       ev.preventDefault()
       const index = number === 0 ? 9 : number - 1
       handleEmojiCopy(index)
