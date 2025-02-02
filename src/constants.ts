@@ -34,6 +34,9 @@ export const searchExamples = [
   'chemistry',
   'Lord of the Rings',
   'vacation',
+  'artificial intelligence',
+  'rocket launch',
+  'Harry Potter',
 ]
   // shuffle the examples
   .map((value) => ({ value, sort: Math.random() }))
