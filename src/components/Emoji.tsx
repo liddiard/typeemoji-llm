@@ -43,7 +43,7 @@ function Emoji({
         <span
           className={cn(s.copied, 'animate__animated', 'animate__heartBeat')}
         >
-          ✅
+          📋
         </span>
       ) : (
         <kbd>{index === 9 ? 0 : index + 1}</kbd>
