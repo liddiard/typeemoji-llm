@@ -104,9 +104,12 @@ function App() {
         </div>
       </div>
       <Background loading={loading} />
-      <div className={s.footer}>
-        Created by <a href="https://harrisonliddiard.com">Harrison Liddiard</a>
-      </div>
+      <footer className={s.footer}>
+        Created by{' '}
+        <a href="https://harrisonliddiard.com/project/typeemoji-llm/">
+          Harrison Liddiard
+        </a>
+      </footer>
     </>
   )
 }
