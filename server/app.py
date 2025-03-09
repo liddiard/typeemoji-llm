@@ -17,7 +17,15 @@ app = Flask(__name__)
 
 app.config.from_file("config.json", load=json.load)
 CORS(app)
-limiter = Limiter(get_remote_address, app=app)
+limiter = Limiter(
+    # In an Nginx reverse proxy configuration, X-Real-IP will contain the real
+    # client's forwarded IP address.
+    # Important: X-Real-IP should NOT be used in production if the application
+    # is NOT deployed behind a reverse proxy as a bad actor could set the
+    # header value to whatever they want.
+    lambda: request.headers.get("X-Real-IP") or get_remote_address(),
+    app=app
+)
 cache = Cache(app)
 
 class EmojiResponse(BaseModel):
