@@ -38,6 +38,8 @@ export const searchExamples = [
   'rocket launch',
   'Harry Potter',
   'Minecraft',
+  'travel',
+  'astronomy',
 ]
   // shuffle the examples
   .map((value) => ({ value, sort: Math.random() }))
