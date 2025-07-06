@@ -77,7 +77,7 @@ function App() {
             <span className={s.emojiRight}>✨</span>
           </h1>
           <span className={s.subtitle}>
-            Find the best emoji to represent a concept, powered by AI.
+            Find the best emoji to represent any concept, powered by AI.
           </span>
         </div>
         <Search

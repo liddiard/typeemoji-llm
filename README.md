@@ -1,6 +1,6 @@
 # [✨ TypeEmoji LLM](https://typeemoji.com/)
 
-Find the best emoji to represent a concept, powered by AI. Learn more in the [blog post](https://harrisonliddiard.com/project/typeemoji-llm/).
+Find the best emoji to represent any concept, powered by AI. Learn more in the [blog post](https://harrisonliddiard.com/project/typeemoji-llm/).
 
 ## Local development setup
 
