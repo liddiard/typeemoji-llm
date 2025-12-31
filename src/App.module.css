@@ -75,12 +75,16 @@ a {
 
     &.copied {
       opacity: 1;
+
+      & > div {
+        display: flex;
+        align-items: center;
+        gap: 0.5ch;
+      }
     }
 
     .emoji {
-      font-size: 1.5em;
-      margin-right: 0.25ch;
-      vertical-align: middle;
+      font-size: 1.75em;
     }
   }
 }
