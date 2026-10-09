@@ -40,16 +40,16 @@ def search():
     if len(query) > 100:
         return "Query string is too long", 400
     try:
-        completion = client.beta.chat.completions.parse(
-            model="gpt-4o-mini",
-            messages=[
+        response = client.responses.parse(
+            model="gpt-6-luna",
+            input=[
                 {"role": "system", "content": "You are to act as a recommender for emojis based on a query or description input by the user. Respond with up to 10 emoji that most are most fitting for the user's input. Do not include any other text. Each emoji should be unique; don't repeat the same ones."},
                 {"role": "user", "content": query}
             ],
-            max_completion_tokens=100,
-            response_format=EmojiResponse
+            max_output_tokens=100,
+            text_format=EmojiResponse
         )
-        message = completion.choices[0].message.parsed
+        message = response.output_parsed
         results = list(dict.fromkeys(message.emojis))[:10]
     except Exception as e:
         logger.error(f"Error processing query '{query}': {e}")
