@@ -46,14 +46,33 @@ def search():
                 {"role": "system", "content": "You are to act as a recommender for emojis based on a query or description input by the user. Respond with up to 10 emoji that most are most fitting for the user's input. Do not include any other text. Each emoji should be unique; don't repeat the same ones."},
                 {"role": "user", "content": query}
             ],
-            max_output_tokens=100,
+            max_output_tokens=300,
             text_format=EmojiResponse
         )
         message = response.output_parsed
-        results = list(dict.fromkeys(message.emojis))[:10]
-    except Exception as e:
-        logger.error(f"Error processing query '{query}': {e}")
-        return "Internal server error", 500
+    except Exception:
+        logger.exception(f"Error processing query '{query}'")
+        return {"error": "Internal server error"}, 500
+    if message is None:
+        # model did not return output in the expected format
+        refusal = next(
+            (
+                part.refusal
+                for item in response.output
+                for part in getattr(item, "content", None) or []
+                if getattr(part, "refusal", None)
+            ),
+            None,
+        )
+        if refusal:
+            logger.warning(f"Model refused query '{query}': {refusal}")
+        else:
+            logger.warning(
+                f"Model returned unparseable output for query '{query}': "
+                f"status={response.status}, output={response.output}"
+            )
+        return {"error": "The model could not process this query"}, 502
+    results = list(dict.fromkeys(message.emojis))[:10]
     timestamp = datetime.now().isoformat()
     logger.info(f"[{timestamp}] Query: '{query}', Results: {results}")
     return {"results": results}

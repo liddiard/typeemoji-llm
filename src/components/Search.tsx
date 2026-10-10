@@ -32,8 +32,8 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
       setError(`⚠️ Sorry, something went wrong. ${error}`)
       return []
     }
-    const { headers } = response
-    if (response.status === 429) {
+    const { headers, status } = response
+    if (status === 429) {
       const retryAfter = headers.get('Retry-After')
       const retryString = retryAfter
         ? `after ${timeFormat(new Date(retryAfter))}`
@@ -43,9 +43,17 @@ function Search({ setCopiedIndex, setEmojis, setLoading }: SearchProps) {
       )
       return []
     }
-    const data = await response.json()
+    let data: { results?: string[] }
+    try {
+      data = await response.json()
+    } catch {
+      setError(
+        '⚠️ Sorry, something went wrong. Please try a different query, or try again later.',
+      )
+      return []
+    }
     setCopiedIndex(-1)
-    return data.results as string[]
+    return data.results ?? []
   }
 
   const [emojis, searchAction, loading] = useActionState(handleSubmit, [])

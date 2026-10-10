@@ -28,3 +28,6 @@ dist-ssr
 __pycache__/
 venv/
 .env
+
+# Coding agent
+.opencode/
